@@ -96,7 +96,7 @@
 function timer() {
   var deadline = 'April 05 2019 21:00:00 GMT+0300';
 
-  function getTimeRemaining(endtime) {
+  var getTimeRemaining = function getTimeRemaining(endtime) {
     var t = Date.parse(endtime) - Date.parse(new Date()),
         seconds = Math.floor(t / 1000 % 60),
         minutes = Math.floor(t / 1000 / 60 % 60),
@@ -109,17 +109,16 @@ function timer() {
       'minutes': minutes,
       'seconds': seconds
     };
-  }
+  };
 
-  function setClock(id, endtime) {
+  var setClock = function setClock(id, endtime) {
     var timer = document.getElementById(id),
         days = timer.querySelector('#days'),
         hours = timer.querySelector('#hours'),
         minutes = timer.querySelector('#minutes'),
-        seconds = timer.querySelector('#seconds'),
-        timeInterval = setInterval(updateClock, 1000);
+        seconds = timer.querySelector('#seconds');
 
-    function updateClock() {
+    var updateClock = function updateClock() {
       var t = getTimeRemaining(endtime);
       days.textContent = timeForm(t.days);
       hours.textContent = timeForm(t.hours);
@@ -129,9 +128,11 @@ function timer() {
       if (t.total <= 0) {
         clearInterval(timeInterval);
       }
-    }
+    };
 
-    function timeForm(time) {
+    var timeInterval = setInterval(updateClock, 1000);
+
+    var timeForm = function timeForm(time) {
       var t = time;
 
       if (time < 0) {
@@ -141,8 +142,8 @@ function timer() {
       }
 
       return t;
-    }
-  }
+    };
+  };
 
   setClock('timer', deadline);
 }

@@ -2,7 +2,7 @@ function timer() {
     
     let deadline = 'April 05 2019 21:00:00 GMT+0300';
 
-    function getTimeRemaining(endtime) {
+    let getTimeRemaining = endtime => {
         let t = Date.parse(endtime) - Date.parse(new Date()),
             seconds = Math.floor((t / 1000) % 60),
             minutes = Math.floor((t / 1000 / 60) % 60),
@@ -16,18 +16,17 @@ function timer() {
             'minutes': minutes,
             'seconds': seconds
         };
-    }
+    };
 
-    function setClock(id, endtime) {
+    let setClock = (id, endtime) => {
         let timer = document.getElementById(id),
 
             days = timer.querySelector('#days'),
             hours = timer.querySelector('#hours'),
             minutes = timer.querySelector('#minutes'),
-            seconds = timer.querySelector('#seconds'),
-            timeInterval = setInterval(updateClock, 1000);
+            seconds = timer.querySelector('#seconds');
 
-        function updateClock() {
+        let  updateClock = () => {
             let t = getTimeRemaining(endtime);
 
             days.textContent = timeForm(t.days);
@@ -38,9 +37,11 @@ function timer() {
             if (t.total <= 0) {
                 clearInterval(timeInterval);
             }
-        }
+        };
 
-        function timeForm(time) {
+        let timeInterval = setInterval(updateClock, 1000);
+
+        let timeForm = (time) => {
             let t = time;
             if (time < 0) {
                 t = '00';
@@ -48,8 +49,8 @@ function timer() {
                 t = '0' + time;
             }
             return t;
-        }
-    }
+        };
+    };
     setClock('timer', deadline);
     
 }
