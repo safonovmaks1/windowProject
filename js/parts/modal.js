@@ -31,7 +31,7 @@ function modal() {
         document.body.style.overflow = 'hidden';
     };
 
-    // setTimeout(openModal, 6000);
+    setTimeout(openModal, 6000);
     
     closeP.addEventListener('click', () => {
         popup.style.display = 'none';
