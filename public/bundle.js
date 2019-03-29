@@ -86,6 +86,78 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./js/parts/modal.js":
+/*!***************************!*\
+  !*** ./js/parts/modal.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function modal() {
+  var popup = document.querySelector('.popup'),
+      popupLink = document.querySelectorAll('.phone_link'),
+      popupEngineer = document.querySelector('.popup_engineer'),
+      popupBtn = document.querySelector('.header_btn'),
+      closeP = document.getElementsByClassName('popup_close')[0],
+      closeE = document.getElementsByClassName('popup_close')[1];
+  popupLink.forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      e.preventDefault();
+      popup.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  popupBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    popupEngineer.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  });
+
+  var openModal = function openModal() {
+    popup.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }; // setTimeout(openModal, 6000);
+
+
+  closeP.addEventListener('click', function () {
+    popup.style.display = 'none';
+    document.body.style.overflow = '';
+  });
+  window.addEventListener('click', function (e) {
+    if (e.target == popup) {
+      popup.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
+  closeE.addEventListener('click', function () {
+    popupEngineer.style.display = 'none';
+    document.body.style.overflow = '';
+  });
+  window.addEventListener('click', function (e) {
+    if (e.target == popupEngineer) {
+      popupEngineer.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
+}
+
+module.exports = modal;
+
+/***/ }),
+
+/***/ "./js/parts/tabs.js":
+/*!**************************!*\
+  !*** ./js/parts/tabs.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function tabs() {}
+
+module.exports = tabs;
+
+/***/ }),
+
 /***/ "./js/parts/timer.js":
 /*!***************************!*\
   !*** ./js/parts/timer.js ***!
@@ -168,9 +240,13 @@ __webpack_require__(/*! nodelist-foreach-polyfill */ "./node_modules/nodelist-fo
 window.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
-  var timer = __webpack_require__(/*! ./parts/timer */ "./js/parts/timer.js");
+  var timer = __webpack_require__(/*! ./parts/timer */ "./js/parts/timer.js"),
+      tabs = __webpack_require__(/*! ./parts/tabs */ "./js/parts/tabs.js"),
+      modal = __webpack_require__(/*! ./parts/modal */ "./js/parts/modal.js");
 
   timer();
+  modal();
+  tabs();
 });
 
 /***/ }),
