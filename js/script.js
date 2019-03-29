@@ -7,13 +7,13 @@ window.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
     let timer = require('./parts/timer'),
-        tabs = require('./parts/tabs'),
+        tabsGlazing = require('./parts/tabsGlazing'),
         modal = require('./parts/modal');
 
 
     timer();
     modal();
-    tabs();
+    tabsGlazing();
 
 
 });
