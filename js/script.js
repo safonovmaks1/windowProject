@@ -8,12 +8,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let timer = require('./parts/timer'),
         tabsGlazing = require('./parts/tabsGlazing'),
+        tabsDecor = require('./parts/tabsDecor'),
         modal = require('./parts/modal');
 
 
     timer();
     modal();
     tabsGlazing();
+    tabsDecor();
 
 
 });

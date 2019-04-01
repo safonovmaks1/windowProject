@@ -150,6 +150,56 @@ module.exports = modal;
 
 /***/ }),
 
+/***/ "./js/parts/tabsDecor.js":
+/*!*******************************!*\
+  !*** ./js/parts/tabsDecor.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function tabsDecor() {
+  var tabDecor = document.querySelectorAll('.no_click'),
+      link = document.getElementsByClassName('text'),
+      info = document.querySelector('.decoration_slider'),
+      tabContent = document.querySelectorAll('.decorat');
+
+  function hideTabContent(a) {
+    for (var i = a; i < tabContent.length; i++) {
+      tabDecor[i].classList.remove('after_click');
+      tabContent[i].classList.remove('show');
+      tabContent[i].classList.add('hide');
+    }
+  }
+
+  hideTabContent(1);
+
+  function showTabContent(b) {
+    if (tabContent[b].classList.contains('hide')) {
+      tabDecor[b].classList.add('after_click');
+      tabContent[b].classList.remove('hide');
+      tabContent[b].classList.add('show');
+    }
+  }
+
+  info.addEventListener('click', function (event) {
+    var target = event.target;
+
+    if (target.classList.contains('no_click') || target.classList.contains('text')) {
+      for (var i = 0; i < tabDecor.length; i++) {
+        if (target == tabDecor[i] || target == link[i]) {
+          hideTabContent(0);
+          showTabContent(i);
+          break;
+        }
+      }
+    }
+  });
+}
+
+module.exports = tabsDecor;
+
+/***/ }),
+
 /***/ "./js/parts/tabsGlazing.js":
 /*!*********************************!*\
   !*** ./js/parts/tabsGlazing.js ***!
@@ -157,7 +207,43 @@ module.exports = modal;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function tabsGlazing() {}
+function tabsGlazing() {
+  var tabTitle = document.querySelectorAll('.tab'),
+      info = document.querySelector('.glazing_slider'),
+      tabContent = document.querySelectorAll('.tabcontent');
+
+  function hideTabContent(a) {
+    for (var i = a; i < tabContent.length; i++) {
+      tabContent[i].classList.remove('show');
+      tabTitle[i].classList.remove('active');
+      tabContent[i].classList.add('hide');
+    }
+  }
+
+  hideTabContent(1);
+
+  function showTabContent(b) {
+    if (tabContent[b].classList.contains('hide')) {
+      tabContent[b].classList.remove('hide');
+      tabContent[b].classList.add('show');
+      tabTitle[b].classList.add('active');
+    }
+  }
+
+  info.addEventListener('click', function (event) {
+    var target = event.target;
+
+    if (target && target.classList.contains('tab')) {
+      for (var i = 0; i < tabTitle.length; i++) {
+        if (target == tabTitle[i]) {
+          hideTabContent(0);
+          showTabContent(i);
+          break;
+        }
+      }
+    }
+  });
+}
 
 module.exports = tabsGlazing;
 
@@ -247,11 +333,13 @@ window.addEventListener('DOMContentLoaded', function () {
 
   var timer = __webpack_require__(/*! ./parts/timer */ "./js/parts/timer.js"),
       tabsGlazing = __webpack_require__(/*! ./parts/tabsGlazing */ "./js/parts/tabsGlazing.js"),
+      tabsDecor = __webpack_require__(/*! ./parts/tabsDecor */ "./js/parts/tabsDecor.js"),
       modal = __webpack_require__(/*! ./parts/modal */ "./js/parts/modal.js");
 
   timer();
   modal();
   tabsGlazing();
+  tabsDecor();
 });
 
 /***/ }),
