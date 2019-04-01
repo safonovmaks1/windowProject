@@ -1,60 +1,57 @@
 function modal() {
 
     let popup = document.querySelector('.popup'),
-        popupLink = document.querySelectorAll('.phone_link'),
-
         popupEngineer = document.querySelector('.popup_engineer'),
         popupBtn = document.querySelector('.header_btn'),
+        close = document.querySelectorAll('.popup_close');
 
-        closeP = document.getElementsByClassName('popup_close')[0],
-        closeE = document.getElementsByClassName('popup_close')[1];
-
-    popupLink.forEach(function (item) {
-        item.addEventListener('click', (e) => {
-            e.preventDefault();
+    document.body.addEventListener('click', (e) => {
+        // e.preventDefault();
+        let target = e.target;
+        if (target.classList.contains('phone_link')) {
             popup.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-
-        });
+            document.body.style.overflow = 'hidden';  
+        } 
     });
 
-
-    popupBtn.addEventListener('click', (e) => {
-        e.preventDefault();
+    popupBtn.addEventListener('click', () => {
         popupEngineer.style.display = 'block';
         document.body.style.overflow = 'hidden';
 
     });
 
-    let openModal = () => {
-        popup.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    };
-
-    // setTimeout(openModal, 6000);
-    
-    closeP.addEventListener('click', () => {
-        popup.style.display = 'none';
-        document.body.style.overflow = '';
+    [].forEach.call(close, (i) => {
+        i.onclick = () => {
+            popup.style.display = 'none';
+            popupEngineer.style.display = 'none';
+            document.body.style.overflow = '';
+        };
     });
+
     window.addEventListener('click', (e) => {
-        if (e.target == popup) {
+        let target = e.target;
+        if (target == popup) {
             popup.style.display = 'none';
             document.body.style.overflow = '';
-        }
-    });
-
-    closeE.addEventListener('click', () => {
-        popupEngineer.style.display = 'none';
-        document.body.style.overflow = '';
-    });
-    window.addEventListener('click', (e) => {
-        if (e.target == popupEngineer) {
+        } else if (e.target == popupEngineer) {
             popupEngineer.style.display = 'none';
             document.body.style.overflow = '';
         }
     });
 
-}
+    document.body.addEventListener('keyup', (e) => {
+        let key = e.keyCode;
+        if (key == 27) {
+            popup.style.display = 'none';
+            popupEngineer.style.display = 'none';
+        }
+    }, false);
 
+    let openModal = () => {
+        popup.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    };
+    setTimeout(openModal, 60000);
+
+}
 module.exports = modal;
