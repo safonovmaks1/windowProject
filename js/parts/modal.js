@@ -20,24 +20,8 @@ function modal() {
 
     });
 
-<<<<<<< HEAD
     [].forEach.call(close, (i) => {
         i.onclick = () => {
-=======
-    let openModal = () => {
-        popup.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    };
-
-    setTimeout(openModal, 6000);
-    
-    closeP.addEventListener('click', () => {
-        popup.style.display = 'none';
-        document.body.style.overflow = '';
-    });
-    window.addEventListener('click', (e) => {
-        if (e.target == popup) {
->>>>>>> 807f63840780e844511c3b6f4f313e345787bd3f
             popup.style.display = 'none';
             popupEngineer.style.display = 'none';
             document.body.style.overflow = '';
@@ -63,7 +47,6 @@ function modal() {
         }
     }, false);
 
-<<<<<<< HEAD
     let openModal = () => {
         popup.style.display = 'block';
         document.body.style.overflow = 'hidden';
@@ -72,6 +55,3 @@ function modal() {
 
 }
 module.exports = modal;
-=======
-module.exports = modal;
->>>>>>> 807f63840780e844511c3b6f4f313e345787bd3f
