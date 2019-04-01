@@ -1,28 +1,28 @@
-function tabsDecor() {
+let tabsDecor = () => {
 
     let tabDecor = document.querySelectorAll('.no_click'),
         link = document.getElementsByClassName('text'),
         info = document.querySelector('.decoration_slider'),
         tabContent = document.querySelectorAll('.decorat');
 
-    function hideTabContent(a) {
+    let hideTabContent = (a) => {
         for (let i = a; i < tabContent.length; i++) {
             tabDecor[i].classList.remove('after_click');
 
             tabContent[i].classList.remove('show');
             tabContent[i].classList.add('hide');
         }
-    }
+    };
     hideTabContent(1);
 
-    function showTabContent(b) {
+    let showTabContent = (b) => {
         if (tabContent[b].classList.contains('hide')) {
             tabDecor[b].classList.add('after_click');
 
             tabContent[b].classList.remove('hide');
             tabContent[b].classList.add('show');
         }
-    }
+    };
 
     info.addEventListener('click', (event) => {
         let target = event.target;
@@ -37,6 +37,6 @@ function tabsDecor() {
         }
     });
 
-}
+};
 
 module.exports = tabsDecor;

@@ -1,4 +1,4 @@
-function timer() {
+let timer = () => {
     
     let deadline = 'April 03 2019 21:00:00 GMT+0300';
 
@@ -53,6 +53,6 @@ function timer() {
     };
     setClock('timer', deadline);
     
-}
+};
 
 module.exports = timer;

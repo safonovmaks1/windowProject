@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function modal() {
+var modal = function modal() {
   var popup = document.querySelector('.popup'),
       popupEngineer = document.querySelector('.popup_engineer'),
       popupBtn = document.querySelector('.header_btn'),
@@ -144,7 +144,7 @@ function modal() {
   };
 
   setTimeout(openModal, 60000);
-}
+};
 
 module.exports = modal;
 
@@ -157,29 +157,29 @@ module.exports = modal;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function tabsDecor() {
+var tabsDecor = function tabsDecor() {
   var tabDecor = document.querySelectorAll('.no_click'),
       link = document.getElementsByClassName('text'),
       info = document.querySelector('.decoration_slider'),
       tabContent = document.querySelectorAll('.decorat');
 
-  function hideTabContent(a) {
+  var hideTabContent = function hideTabContent(a) {
     for (var i = a; i < tabContent.length; i++) {
       tabDecor[i].classList.remove('after_click');
       tabContent[i].classList.remove('show');
       tabContent[i].classList.add('hide');
     }
-  }
+  };
 
   hideTabContent(1);
 
-  function showTabContent(b) {
+  var showTabContent = function showTabContent(b) {
     if (tabContent[b].classList.contains('hide')) {
       tabDecor[b].classList.add('after_click');
       tabContent[b].classList.remove('hide');
       tabContent[b].classList.add('show');
     }
-  }
+  };
 
   info.addEventListener('click', function (event) {
     var target = event.target;
@@ -194,7 +194,7 @@ function tabsDecor() {
       }
     }
   });
-}
+};
 
 module.exports = tabsDecor;
 
@@ -207,28 +207,28 @@ module.exports = tabsDecor;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function tabsGlazing() {
+var tabsGlazing = function tabsGlazing() {
   var tabTitle = document.querySelectorAll('.tab'),
       info = document.querySelector('.glazing_slider'),
       tabContent = document.querySelectorAll('.tabcontent');
 
-  function hideTabContent(a) {
+  var hideTabContent = function hideTabContent(a) {
     for (var i = a; i < tabContent.length; i++) {
       tabContent[i].classList.remove('show');
       tabTitle[i].classList.remove('active');
       tabContent[i].classList.add('hide');
     }
-  }
+  };
 
   hideTabContent(1);
 
-  function showTabContent(b) {
+  var showTabContent = function showTabContent(b) {
     if (tabContent[b].classList.contains('hide')) {
       tabContent[b].classList.remove('hide');
       tabContent[b].classList.add('show');
       tabTitle[b].classList.add('active');
     }
-  }
+  };
 
   info.addEventListener('click', function (event) {
     var target = event.target;
@@ -243,7 +243,7 @@ function tabsGlazing() {
       }
     }
   });
-}
+};
 
 module.exports = tabsGlazing;
 
@@ -256,7 +256,7 @@ module.exports = tabsGlazing;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function timer() {
+var timer = function timer() {
   var deadline = 'April 03 2019 21:00:00 GMT+0300';
 
   var getTimeRemaining = function getTimeRemaining(endtime) {
@@ -309,7 +309,7 @@ function timer() {
   };
 
   setClock('timer', deadline);
-}
+};
 
 module.exports = timer;
 

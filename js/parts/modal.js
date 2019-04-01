@@ -1,4 +1,4 @@
-function modal() {
+let modal = () => {
 
     let popup = document.querySelector('.popup'),
         popupEngineer = document.querySelector('.popup_engineer'),
@@ -53,5 +53,6 @@ function modal() {
     };
     setTimeout(openModal, 60000);
 
-}
+};
+
 module.exports = modal;
