@@ -13,6 +13,14 @@ body {
   color: #000000;
 }
 
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
 .status {
   display: block;
   color: red;
@@ -730,13 +738,6 @@ textarea:focus {
   text-align: center;
   color: black;
 }
-
-
-
-
-
-
-
 
 /*Contacts*/
 .contacts {
