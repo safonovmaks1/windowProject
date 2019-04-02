@@ -18,7 +18,7 @@ let tabsDecor = () => {
     let showTabContent = (b) => {
         if (tabContent[b].classList.contains('hide')) {
             tabDecor[b].classList.add('after_click');
-
+            
             tabContent[b].classList.remove('hide');
             tabContent[b].classList.add('show');
         }

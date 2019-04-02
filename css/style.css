@@ -21,6 +21,10 @@ body {
   display: block;
 }
 
+.text {
+  color: #0089cd;
+}
+
 .status {
   display: block;
   color: red;

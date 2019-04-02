@@ -86,6 +86,69 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./js/parts/ajax.js":
+/*!**************************!*\
+  !*** ./js/parts/ajax.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var ajax = function ajax() {
+  var message = {
+    loading: 'Загрузка...',
+    success: 'Спасибо! Скоро мы с вами свяжемся',
+    failure: 'Что-то пошло не так...'
+  };
+  var form = document.querySelector('.form'),
+      input = document.querySelectorAll('form > input'),
+      statusMessage = document.createElement('div');
+  statusMessage.classList.add('status');
+
+  for (var i = 1; i < 16; i = i + 2) {
+    input[i].oninput = function (e) {
+      return e.target.value = e.target.value.replace(/\D/g, '');
+    };
+  }
+
+  document.body.addEventListener('submit', function (event) {
+    var target = event.target;
+
+    if (target.classList.contains('form')) {
+      for (var _i = 0; _i < 8; _i++) {
+        if (target == form[_i]) {
+          (function () {
+            event.preventDefault();
+
+            form[_i].appendChild(statusMessage);
+
+            var request = new XMLHttpRequest();
+            request.open("POST", 'server.php');
+            request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            var formData = new FormData(form);
+            request.send(formData);
+
+            request.onreadystatechange = function () {
+              if (request.readyState < 4) {
+                statusMessage.innerHTML = message.loading;
+              } else if (request.readyState === 4) {
+                if (request.status == 200 && request.status < 3) {
+                  statusMessage.innerHTML = message.success;
+                } else {
+                  statusMessage.innerHTML = message.failure;
+                }
+              }
+            };
+          })();
+        }
+      }
+    }
+  });
+};
+
+module.exports = ajax;
+
+/***/ }),
+
 /***/ "./js/parts/modal.js":
 /*!***************************!*\
   !*** ./js/parts/modal.js ***!
@@ -332,11 +395,13 @@ window.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
   var timer = __webpack_require__(/*! ./parts/timer */ "./js/parts/timer.js"),
+      ajax = __webpack_require__(/*! ./parts/ajax */ "./js/parts/ajax.js"),
       tabsGlazing = __webpack_require__(/*! ./parts/tabsGlazing */ "./js/parts/tabsGlazing.js"),
       tabsDecor = __webpack_require__(/*! ./parts/tabsDecor */ "./js/parts/tabsDecor.js"),
       modal = __webpack_require__(/*! ./parts/modal */ "./js/parts/modal.js");
 
   timer();
+  ajax();
   modal();
   tabsGlazing();
   tabsDecor();
