@@ -213,6 +213,47 @@ module.exports = modal;
 
 /***/ }),
 
+/***/ "./js/parts/popupImg.js":
+/*!******************************!*\
+  !*** ./js/parts/popupImg.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var popupImg = function popupImg() {
+  var modal = document.querySelector('.overlay'),
+      img = document.querySelectorAll('.myImg');
+  document.body.addEventListener('click', function (e) {
+    e.preventDefault();
+    var target = e.target;
+
+    for (var i = 0; i < img.length; i++) {
+      if (target.classList.contains('myImg')) {
+        if (target == img[i]) {
+          modal.style.display = "block";
+          document.body.style.overflow = 'hidden';
+          var pic = document.createElement("img");
+          pic.classList.add('big_img');
+          pic.src = "img/our_works/big_img/".concat(i + 1, ".png");
+          modal.appendChild(pic);
+        }
+      }
+    }
+  });
+  window.addEventListener('click', function (e) {
+    var target = e.target;
+
+    if (target == modal) {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
+};
+
+module.exports = popupImg;
+
+/***/ }),
+
 /***/ "./js/parts/tabsDecor.js":
 /*!*******************************!*\
   !*** ./js/parts/tabsDecor.js ***!
@@ -398,6 +439,7 @@ window.addEventListener('DOMContentLoaded', function () {
       ajax = __webpack_require__(/*! ./parts/ajax */ "./js/parts/ajax.js"),
       tabsGlazing = __webpack_require__(/*! ./parts/tabsGlazing */ "./js/parts/tabsGlazing.js"),
       tabsDecor = __webpack_require__(/*! ./parts/tabsDecor */ "./js/parts/tabsDecor.js"),
+      popupImg = __webpack_require__(/*! ./parts/popupImg */ "./js/parts/popupImg.js"),
       modal = __webpack_require__(/*! ./parts/modal */ "./js/parts/modal.js");
 
   timer();
@@ -405,6 +447,7 @@ window.addEventListener('DOMContentLoaded', function () {
   modal();
   tabsGlazing();
   tabsDecor();
+  popupImg();
 });
 
 /***/ }),

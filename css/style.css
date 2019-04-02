@@ -25,6 +25,15 @@ body {
   color: #0089cd;
 }
 
+.big_img {
+  height: 70%;
+  position: fixed;
+  top: 12%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
 .status {
   display: block;
   color: red;

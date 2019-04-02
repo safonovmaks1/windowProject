@@ -10,6 +10,7 @@ window.addEventListener('DOMContentLoaded', () => {
         ajax = require('./parts/ajax'),
         tabsGlazing = require('./parts/tabsGlazing'),
         tabsDecor = require('./parts/tabsDecor'),
+        popupImg = require('./parts/popupImg'),
         modal = require('./parts/modal');
 
 
@@ -18,6 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
     modal();
     tabsGlazing();
     tabsDecor();
+    popupImg();
 
 
 });
