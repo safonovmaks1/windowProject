@@ -222,7 +222,8 @@ module.exports = modal;
 
 var popupImg = function popupImg() {
   var modal = document.querySelector('.overlay'),
-      img = document.querySelectorAll('.myImg');
+      img = document.querySelectorAll('.myImg'),
+      bigImg;
   document.body.addEventListener('click', function (e) {
     e.preventDefault();
     var target = e.target;
@@ -232,10 +233,10 @@ var popupImg = function popupImg() {
         if (target == img[i]) {
           modal.style.display = "block";
           document.body.style.overflow = 'hidden';
-          var pic = document.createElement("img");
-          pic.classList.add('big_img');
-          pic.src = "img/our_works/big_img/".concat(i + 1, ".png");
-          modal.appendChild(pic);
+          bigImg = document.createElement("img");
+          bigImg.classList.add('big_img');
+          bigImg.src = "img/our_works/big_img/".concat(i + 1, ".png");
+          modal.appendChild(bigImg);
         }
       }
     }
@@ -246,6 +247,8 @@ var popupImg = function popupImg() {
     if (target == modal) {
       modal.style.display = 'none';
       document.body.style.overflow = '';
+      bigImg.classList.remove('img_big');
+      bigImg.src = '';
     }
   });
 };
