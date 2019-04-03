@@ -15,15 +15,16 @@ let ajax = () => {
         input[i].oninput = e => e.target.value = e.target.value.replace(/\D/g, '');
     }
 
-    document.body.addEventListener('submit', (event) => {
-        let target = event.target;
+    document.body.addEventListener('submit', (e) => {
+
+        let target = e.target;
 
         if (target.classList.contains('form')) {
             for (let i = 0; i < 8; i++) {
                 if (target == form[i]) {
-                    event.preventDefault();
+                    
 
-                    form[i].appendChild(statusMessage);
+                form[i].appendChild(statusMessage);
 
                 let request = new XMLHttpRequest();
                     request.open("POST", 'server.php');

@@ -5,7 +5,6 @@ let calc = () => {
         popupCalcEnd = document.querySelector('.popup_calc_end');
 
         document.body.addEventListener('click', e => {
-            // e.preventDefault();
             let target = e.target;
             if (target.classList.contains('glazing_price_btn')) {
                 popupCalc.style.display = 'block';
@@ -35,21 +34,21 @@ let calc = () => {
                 popupCalcEnd.style.display = 'none';
                 document.body.style.overflow = '';
 
-                obj = {
-                    widthValue: 0,
-                    heightValue: 0,
-                    typeWin: 'tree',
-                    profile: '',
-                    name: '',
-                    phone: 0
-                };
-                widthCalc.value = '';
-                heightCalc.value = '';
-                checkboxCold.checked = false;
-                checkboxWarm.checked = false;
-                inputName.value = '';
-                inputPhone.value = '';
-                statusMessage.innerHTML = '';
+                // obj = {
+                //     widthValue: 0,
+                //     heightValue: 0,
+                //     typeWin: 'tree',
+                //     profile: '',
+                //     name: '',
+                //     phone: 0
+                // };
+                // widthCalc.value = '';
+                // heightCalc.value = '';
+                // checkboxCold.checked = false;
+                // checkboxWarm.checked = false;
+                // inputName.value = '';
+                // inputPhone.value = '';
+                // statusMessage.innerHTML = '';
 
                 showTabContent(0);
             }
@@ -77,7 +76,7 @@ let calc = () => {
     };
 
         info.addEventListener('click', e => {
-            e.preventDefault();
+
         let target = e.target,
             type1Img = document.querySelector('.type1_img'),
             type2Img = document.querySelector('.type2_img'),
@@ -113,62 +112,67 @@ let calc = () => {
             }
         });
 
+    // calc
 
-    let widthCalc = document.querySelector('#width'),
-        heightCalc = document.querySelector('#height'),
+    let width = document.querySelector('#width'),
+        height = document.querySelector('#height'),
 
-        choiceType = document.querySelector('#view_type'),
+        view = document.getElementById('view_type'),
+        choiceType = view.options[view.selectedIndex].value,
 
-        checkboxCold = document.getElementsByClassName('checkbox')[0],
-        checkboxWarm = document.getElementsByClassName('checkbox')[1],
+        cold = document.getElementsByClassName('checkbox')[0],
+        warm = document.getElementsByClassName('checkbox')[1],
 
-        formCalc = document.querySelector('.form'),
+        checkboxes = document.getElementsByClassName('checkbox'),
 
-        inputName = formCalc.getElementsByClassName('form_input')[0],
-        inputPhone = formCalc.getElementsByClassName('form_input')[1],
+        name = document.getElementsByClassName('form_input')[0],
+        phone = document.getElementsByClassName('form_input')[1],
 
-        obj = {
-            widthValue: 0,
-            heightValue: 0,
-            type: 'tree',
+        formCalc = document.getElementsByClassName('form'),
+
+        data = {
+            width: 0,
+            height: 0,
+            choiceType: '',
             profile: '',
             name: '',
             phone: 0
         };
+    console.log(data);
 
-        widthCalc.oninput = e => e.target.value = e.target.value.replace(/\D/g, '');
-        heightCalc.oninput = e => e.target.value = e.target.value.replace(/\D/g, '');
-        inputPhone.oninput = e => e.target.value = e.target.value.replace(/\D/g, '');
+    width.oninput = e => e.target.value = e.target.value.replace(/\D/g, '');
+    height.oninput = e => e.target.value = e.target.value.replace(/\D/g, '');
+    phone.oninput = e => e.target.value = e.target.value.replace(/\D/g, '');
 
+    width.addEventListener('change', () => {
+        data.width = this.value;
+    });
+    height.addEventListener('change', () => {
+        data.height = this.value;
+    });
 
+    view.addEventListener('change', () => {
+        choiceType = this.options[this.selectedIndex].value;
+    });
 
-        widthCalc.addEventListener('change', () => {
-            obj.widthValue = this.value;
-        });
+    cold.addEventListener('change', () => {
+        if (cold.checked) {
+            warm.checked = false;
+            data.profile = 'cold';
+        } 
+    });
+    warm.addEventListener('change', () => {
+        if (warm.checked) {
+            cold.checked = false;
+            data.profile = 'warm';
+        }
+    });
 
-        heightCalc.addEventListener('change', () => {
-            obj.heightValue = this.value;
-        });
-
-        choiceType.addEventListener('change', () => {
-            obj.type = this.options[this.selectedIndex].value;
-        });
-
-        checkboxCold.addEventListener('change', () => {
-            if (checkboxCold.checked) {
-                checkboxWarm.checked = false;
-                obj.profile = 'cold';
-            }
-        });
-
-        checkboxWarm.addEventListener('change', () => {
-            if (checkboxWarm.checked) {
-                checkboxCold.checked = false;
-                obj.profile = 'warm';
-            }
-        });
-
-        console.log(obj);
+    // cold.checked = true;
+    // warm.checked = true;
+ 
+    data.name = name.value;
+    data.phone = phone.value;
 
     let message = {
         loading: 'Загрузка...',
@@ -179,37 +183,30 @@ let calc = () => {
     let statusMessage = document.createElement('div');
         statusMessage.classList.add('status');
 
-        document.body.addEventListener('submit', e => {
-            e.preventDefault();
-            formCalc.appendChild(statusMessage);
+    document.body.addEventListener('submit', (e) => {
 
-            obj.name = inputName.value;
-            obj.phone = inputPhone.value;
+        formCalc.appendChild(statusMessage);
 
-            let request = new XMLHttpRequest();
-            request.open("POST", 'server.php');
+    let request = new XMLHttpRequest();
+        request.open("POST", 'server.php');
 
-            request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-            let formData = JSON.stringify(obj);
+    let formData = JSON.stringify(data);
 
-            request.send(formData);
+        request.send(formData);
 
-            request.onreadystatechange = () => {
-                if (request.readyState < 4) {
-                    statusMessage.innerHTML = message.loading;
-                } else if (request.status == 200 && request.status === 4) {
-                    statusMessage.innerHTML = message.success;
-                } else {
-                    statusMessage.innerHTML = message.failure;
-                }
-            };
+        request.onreadystatechange = () => {
+            if (request.readyState < 4) {
+                statusMessage.innerHTML = message.loading;
+            } else if (request.status == 200 && request.status === 4) {
+                statusMessage.innerHTML = message.success;
+            } else {
+                statusMessage.innerHTML = message.failure;
+            }
+        };
 
-        });
-
-
-            
-
+    });
 
 };
 

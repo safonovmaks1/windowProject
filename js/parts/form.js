@@ -17,13 +17,13 @@ let form = () => {
 
         
     document.body.addEventListener('submit', e => {
-        e.preventDefault();
+
         let target = e.target;
 
         if (target.classList.contains('form')) {
             for (let i = 0; i < 8; i++) {
+                e.stopPropagation();
                 if (target == form[i]) {
-                    // e.preventDefault();
 
                     form[i].appendChild(statusMessage);
 
