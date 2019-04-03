@@ -5,7 +5,7 @@ let modal = () => {
         popupBtn = document.querySelector('.header_btn'),
         close = document.querySelectorAll('.popup_close');
 
-    document.body.addEventListener('click', (e) => {
+    document.body.addEventListener('click', e => {
         // e.preventDefault();
         let target = e.target;
         if (target.classList.contains('phone_link')) {
@@ -20,7 +20,7 @@ let modal = () => {
 
     });
 
-    [].forEach.call(close, (i) => {
+    [].forEach.call(close, i => {
         i.onclick = () => {
             popup.style.display = 'none';
             popupEngineer.style.display = 'none';
@@ -28,7 +28,7 @@ let modal = () => {
         };
     });
 
-    window.addEventListener('click', (e) => {
+    window.addEventListener('click', e => {
         let target = e.target;
         if (target == popup) {
             popup.style.display = 'none';
@@ -39,7 +39,7 @@ let modal = () => {
         }
     });
 
-    document.body.addEventListener('keyup', (e) => {
+    document.body.addEventListener('keyup', e => {
         let key = e.keyCode;
         if (key == 27) {
             popup.style.display = 'none';

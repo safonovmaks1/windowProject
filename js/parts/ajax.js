@@ -25,22 +25,20 @@ let ajax = () => {
 
                     form[i].appendChild(statusMessage);
 
-                    let request = new XMLHttpRequest();
+                let request = new XMLHttpRequest();
                     request.open("POST", 'server.php');
                     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-                    let formData = new FormData(form);
+                let formData = new FormData(form);
                     request.send(formData);
 
                     request.onreadystatechange = () => {
                         if (request.readyState < 4) {
                             statusMessage.innerHTML = message.loading;
-                        } else if (request.readyState === 4) {
-                            if (request.status == 200 && request.status < 3) {
-                                statusMessage.innerHTML = message.success;
-                            } else {
-                                statusMessage.innerHTML = message.failure;
-                            }
+                        } else if (request.status == 200 && request.status === 4) {
+                            statusMessage.innerHTML = message.success;
+                        } else {
+                            statusMessage.innerHTML = message.failure;
                         }
                     };
                 }

@@ -25,6 +25,10 @@ body {
   color: #0089cd;
 }
 
+.balconIcon {
+  width: 100%;
+}
+
 .big_img {
   height: 70%;
   position: fixed;

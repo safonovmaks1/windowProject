@@ -11,6 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
         tabsGlazing = require('./parts/tabsGlazing'),
         tabsDecor = require('./parts/tabsDecor'),
         popupImg = require('./parts/popupImg'),
+        calc = require('./parts/calc'),
         modal = require('./parts/modal');
 
 
@@ -20,6 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
     tabsGlazing();
     tabsDecor();
     popupImg();
+    calc();
 
 
 });

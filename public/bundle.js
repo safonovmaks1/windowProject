@@ -130,12 +130,10 @@ var ajax = function ajax() {
             request.onreadystatechange = function () {
               if (request.readyState < 4) {
                 statusMessage.innerHTML = message.loading;
-              } else if (request.readyState === 4) {
-                if (request.status == 200 && request.status < 3) {
-                  statusMessage.innerHTML = message.success;
-                } else {
-                  statusMessage.innerHTML = message.failure;
-                }
+              } else if (request.status == 200 && request.status === 4) {
+                statusMessage.innerHTML = message.success;
+              } else {
+                statusMessage.innerHTML = message.failure;
               }
             };
           })();
@@ -146,6 +144,190 @@ var ajax = function ajax() {
 };
 
 module.exports = ajax;
+
+/***/ }),
+
+/***/ "./js/parts/calc.js":
+/*!**************************!*\
+  !*** ./js/parts/calc.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var _this = this;
+
+var calc = function calc() {
+  var popupCalc = document.querySelector('.popup_calc'),
+      popupCalcProfile = document.querySelector('.popup_calc_profile'),
+      popupCalcEnd = document.querySelector('.popup_calc_end');
+  document.body.addEventListener('click', function (e) {
+    // e.preventDefault();
+    var target = e.target;
+
+    if (target.classList.contains('glazing_price_btn')) {
+      popupCalc.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+
+    if (target.classList.contains('popup_calc_button')) {
+      popupCalcProfile.style.display = 'block';
+      popupCalc.style.display = 'none';
+      document.body.style.overflow = 'hidden';
+    }
+
+    if (target.classList.contains('popup_calc_profile_button')) {
+      popupCalcEnd.style.display = 'block';
+      popupCalcProfile.style.display = 'none';
+      document.body.style.overflow = 'hidden';
+    }
+  });
+  document.body.addEventListener('click', function (e) {
+    var target = e.target;
+
+    if (target.classList.contains('popup_calc_close') || target.tagName == 'STRONG' || target.classList.contains('popup_calc_profile_close') || target.classList.contains('popup_calc_end_close')) {
+      popupCalc.style.display = 'none';
+      popupCalcProfile.style.display = 'none';
+      popupCalcEnd.style.display = 'none';
+      document.body.style.overflow = ''; // obj = {
+      //     widthValue: 0,
+      //     heightValue: 0,
+      //     typeWin: 'tree',
+      //     profile: '',
+      //     name: '',
+      //     phone: 0
+      // };
+      // widthCalc.value = '';
+      // heightCalc.value = '';
+      // checkboxCold.checked = false;
+      // checkboxWarm.checked = false;
+      // inputName.value = '';
+      // inputPhone.value = '';
+      // statusMessage.innerHTML = '';
+      // showTabBalconIcon(0);
+    }
+  });
+  var info = document.querySelector('.balcon_icons'),
+      tabContent = document.querySelectorAll('.balconIcon');
+
+  var hideTabContent = function hideTabContent(a) {
+    for (var i = a; i < tabContent.length; i++) {
+      tabContent[i].classList.remove('show');
+      tabContent[i].classList.add('hide');
+    }
+  };
+
+  hideTabContent(1);
+
+  var showTabContent = function showTabContent(b) {
+    if (tabContent[b].classList.contains('hide')) {
+      hideTabContent(0);
+      tabContent[b].classList.remove('hide');
+      tabContent[b].classList.add('show');
+    }
+  };
+
+  info.addEventListener('click', function (e) {
+    e.preventDefault();
+    var target = e.target;
+
+    if (target.classList.contains('type1_img')) {
+      showTabContent(0);
+    }
+
+    if (target.classList.contains('type2_img')) {
+      showTabContent(1);
+    }
+
+    if (target.classList.contains('type3_img')) {
+      showTabContent(2);
+    }
+
+    if (target.classList.contains('type4_img')) {
+      showTabContent(3);
+    }
+  });
+  var widthCalc = document.querySelector('#width'),
+      heightCalc = document.querySelector('#height'),
+      choiceType = document.querySelector('#view_type'),
+      checkboxCold = document.getElementsByClassName('checkbox')[0],
+      checkboxWarm = document.getElementsByClassName('checkbox')[1],
+      formCalc = document.querySelector('.form'),
+      inputName = formCalc.getElementsByClassName('form_input')[0],
+      inputPhone = formCalc.getElementsByClassName('form_input')[1],
+      obj = {
+    widthValue: 0,
+    heightValue: 0,
+    type: 'tree',
+    profile: '',
+    name: '',
+    phone: 0
+  };
+
+  widthCalc.oninput = function (e) {
+    return e.target.value = e.target.value.replace(/\D/g, '');
+  };
+
+  heightCalc.oninput = function (e) {
+    return e.target.value = e.target.value.replace(/\D/g, '');
+  };
+
+  inputPhone.oninput = function (e) {
+    return e.target.value = e.target.value.replace(/\D/g, '');
+  };
+
+  widthCalc.addEventListener('change', function () {
+    obj.widthValue = _this.value;
+  });
+  heightCalc.addEventListener('change', function () {
+    obj.heightValue = _this.value;
+  });
+  choiceType.addEventListener('change', function () {
+    obj.type = _this.options[_this.selectedIndex].value;
+  });
+  checkboxCold.addEventListener('change', function () {
+    if (checkboxCold.checked) {
+      checkboxWarm.checked = false;
+      obj.profile = 'cold';
+    }
+  });
+  checkboxWarm.addEventListener('change', function () {
+    if (checkboxWarm.checked) {
+      checkboxCold.checked = false;
+      obj.profile = 'warm';
+    }
+  });
+  console.log(obj);
+  var message = {
+    loading: 'Загрузка...',
+    success: 'Спасибо! Скоро мы с вами свяжемся',
+    failure: 'Что-то пошло не так...'
+  };
+  var statusMessage = document.createElement('div');
+  statusMessage.classList.add('status');
+  document.body.addEventListener('submit', function (e) {
+    e.preventDefault();
+    formCalc.appendChild(statusMessage);
+    obj.name = inputName.value;
+    obj.phone = inputPhone.value;
+    var request = new XMLHttpRequest();
+    request.open("POST", 'server.php');
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    var formData = JSON.stringify(obj);
+    request.send(formData);
+
+    request.onreadystatechange = function () {
+      if (request.readyState < 4) {
+        statusMessage.innerHTML = message.loading;
+      } else if (request.status == 200 && request.status === 4) {
+        statusMessage.innerHTML = message.success;
+      } else {
+        statusMessage.innerHTML = message.failure;
+      }
+    };
+  });
+};
+
+module.exports = calc;
 
 /***/ }),
 
@@ -443,6 +625,7 @@ window.addEventListener('DOMContentLoaded', function () {
       tabsGlazing = __webpack_require__(/*! ./parts/tabsGlazing */ "./js/parts/tabsGlazing.js"),
       tabsDecor = __webpack_require__(/*! ./parts/tabsDecor */ "./js/parts/tabsDecor.js"),
       popupImg = __webpack_require__(/*! ./parts/popupImg */ "./js/parts/popupImg.js"),
+      calc = __webpack_require__(/*! ./parts/calc */ "./js/parts/calc.js"),
       modal = __webpack_require__(/*! ./parts/modal */ "./js/parts/modal.js");
 
   timer();
@@ -451,6 +634,7 @@ window.addEventListener('DOMContentLoaded', function () {
   tabsGlazing();
   tabsDecor();
   popupImg();
+  calc();
 });
 
 /***/ }),
