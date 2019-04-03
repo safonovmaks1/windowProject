@@ -86,67 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./js/parts/ajax.js":
-/*!**************************!*\
-  !*** ./js/parts/ajax.js ***!
-  \**************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var ajax = function ajax() {
-  var message = {
-    loading: 'Загрузка...',
-    success: 'Спасибо! Скоро мы с вами свяжемся',
-    failure: 'Что-то пошло не так...'
-  };
-  var form = document.querySelector('.form'),
-      input = document.querySelectorAll('form > input'),
-      statusMessage = document.createElement('div');
-  statusMessage.classList.add('status');
-
-  for (var i = 1; i < 16; i = i + 2) {
-    input[i].oninput = function (e) {
-      return e.target.value = e.target.value.replace(/\D/g, '');
-    };
-  }
-
-  document.body.addEventListener('submit', function (event) {
-    var target = event.target;
-
-    if (target.classList.contains('form')) {
-      for (var _i = 0; _i < 8; _i++) {
-        if (target == form[_i]) {
-          (function () {
-            event.preventDefault();
-
-            form[_i].appendChild(statusMessage);
-
-            var request = new XMLHttpRequest();
-            request.open("POST", 'server.php');
-            request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            var formData = new FormData(form);
-            request.send(formData);
-
-            request.onreadystatechange = function () {
-              if (request.readyState < 4) {
-                statusMessage.innerHTML = message.loading;
-              } else if (request.status == 200 && request.status === 4) {
-                statusMessage.innerHTML = message.success;
-              } else {
-                statusMessage.innerHTML = message.failure;
-              }
-            };
-          })();
-        }
-      }
-    }
-  });
-};
-
-module.exports = ajax;
-
-/***/ }),
-
 /***/ "./js/parts/calc.js":
 /*!**************************!*\
   !*** ./js/parts/calc.js ***!
@@ -229,22 +168,42 @@ var calc = function calc() {
 
   info.addEventListener('click', function (e) {
     e.preventDefault();
-    var target = e.target;
+    var target = e.target,
+        type1Img = document.querySelector('.type1_img'),
+        type2Img = document.querySelector('.type2_img'),
+        type3Img = document.querySelector('.type3_img'),
+        type4Img = document.querySelector('.type4_img');
 
     if (target.classList.contains('type1_img')) {
+      type1Img.classList.add('do_image_more');
       showTabContent(0);
+      type2Img.classList.remove('do_image_more');
+      type3Img.classList.remove('do_image_more');
+      type4Img.classList.remove('do_image_more');
     }
 
     if (target.classList.contains('type2_img')) {
+      type2Img.classList.add('do_image_more');
       showTabContent(1);
+      type1Img.classList.remove('do_image_more');
+      type3Img.classList.remove('do_image_more');
+      type4Img.classList.remove('do_image_more');
     }
 
     if (target.classList.contains('type3_img')) {
+      type3Img.classList.add('do_image_more');
       showTabContent(2);
+      type2Img.classList.remove('do_image_more');
+      type1Img.classList.remove('do_image_more');
+      type4Img.classList.remove('do_image_more');
     }
 
     if (target.classList.contains('type4_img')) {
+      type4Img.classList.add('do_image_more');
       showTabContent(3);
+      type2Img.classList.remove('do_image_more');
+      type3Img.classList.remove('do_image_more');
+      type1Img.classList.remove('do_image_more');
     }
   });
   var widthCalc = document.querySelector('#width'),
@@ -329,6 +288,80 @@ var calc = function calc() {
 };
 
 module.exports = calc;
+
+/***/ }),
+
+/***/ "./js/parts/form.js":
+/*!**************************!*\
+  !*** ./js/parts/form.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var form = function form() {
+  var message = {
+    loading: 'Загрузка...',
+    success: 'Спасибо! Скоро мы с вами свяжемся',
+    failure: 'Что-то пошло не так...'
+  };
+  var form = document.getElementsByClassName('form'),
+      input = document.querySelectorAll('form > input'),
+      statusMessage = document.createElement('div');
+  statusMessage.classList.add('status');
+
+  for (var i = 1; i < 16; i = i + 2) {
+    input[i].oninput = function (e) {
+      return e.target.value = e.target.value.replace(/\D/g, '');
+    };
+  }
+
+  document.body.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var target = e.target;
+
+    if (target.classList.contains('form')) {
+      for (var _i = 0; _i < 8; _i++) {
+        if (target == form[_i]) {
+          (function () {
+            // e.preventDefault();
+            form[_i].appendChild(statusMessage);
+
+            var request = new XMLHttpRequest();
+            request.open("POST", 'server.php'); // request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            var formData = new FormData(form); // request.send(formData);
+
+            var obj = {};
+
+            formData.forEach = function (value, key) {
+              obj[key] = value;
+            };
+
+            var json = JSON.stringify(obj);
+            request.send(json); // JSON
+
+            request.addEventListener('onreadystatechange', function () {
+              if (request.readyState < 4) {
+                statusMessage.innerHTML = message.loading;
+              } else if (request.status == 200 && request.status < 300) {
+                statusMessage.innerHTML = message.success;
+              } else {
+                statusMessage.innerHTML = message.failure;
+              }
+            });
+
+            for (var _i2 = 0; _i2 < input.length; _i2++) {
+              input[_i2].value = ''; // Очищаем инпуты  
+            }
+          })();
+        }
+      }
+    }
+  });
+};
+
+module.exports = form;
 
 /***/ }),
 
@@ -622,20 +655,22 @@ window.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
   var timer = __webpack_require__(/*! ./parts/timer */ "./js/parts/timer.js"),
-      ajax = __webpack_require__(/*! ./parts/ajax */ "./js/parts/ajax.js"),
+      // ajax = require('./parts/ajax'),
+  form = __webpack_require__(/*! ./parts/form */ "./js/parts/form.js"),
       tabsGlazing = __webpack_require__(/*! ./parts/tabsGlazing */ "./js/parts/tabsGlazing.js"),
       tabsDecor = __webpack_require__(/*! ./parts/tabsDecor */ "./js/parts/tabsDecor.js"),
       popupImg = __webpack_require__(/*! ./parts/popupImg */ "./js/parts/popupImg.js"),
       calc = __webpack_require__(/*! ./parts/calc */ "./js/parts/calc.js"),
       modal = __webpack_require__(/*! ./parts/modal */ "./js/parts/modal.js");
 
-  timer();
-  ajax();
+  timer(); // ajax();
+
   modal();
   tabsGlazing();
   tabsDecor();
   popupImg();
   calc();
+  form();
 });
 
 /***/ }),

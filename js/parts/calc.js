@@ -63,6 +63,7 @@ let calc = () => {
         for (let i = a; i < tabContent.length; i++) {
             tabContent[i].classList.remove('show');
             tabContent[i].classList.add('hide');
+            
         }
     };
     hideTabContent(1);
@@ -77,18 +78,38 @@ let calc = () => {
 
         info.addEventListener('click', e => {
             e.preventDefault();
-        let target = e.target;
+        let target = e.target,
+            type1Img = document.querySelector('.type1_img'),
+            type2Img = document.querySelector('.type2_img'),
+            type3Img = document.querySelector('.type3_img'),
+            type4Img = document.querySelector('.type4_img');
             if (target.classList.contains('type1_img')) {
+                type1Img.classList.add('do_image_more');
                 showTabContent(0);
+                type2Img.classList.remove('do_image_more');
+                type3Img.classList.remove('do_image_more');
+                type4Img.classList.remove('do_image_more');
             }
             if (target.classList.contains('type2_img')) {
+                type2Img.classList.add('do_image_more');
                 showTabContent(1);
+                type1Img.classList.remove('do_image_more');
+                type3Img.classList.remove('do_image_more');
+                type4Img.classList.remove('do_image_more');
             }
             if (target.classList.contains('type3_img')) {
+                type3Img.classList.add('do_image_more');
                 showTabContent(2);
+                type2Img.classList.remove('do_image_more');
+                type1Img.classList.remove('do_image_more');
+                type4Img.classList.remove('do_image_more');
             }
             if (target.classList.contains('type4_img')) {
+                type4Img.classList.add('do_image_more');
                 showTabContent(3);
+                type2Img.classList.remove('do_image_more');
+                type3Img.classList.remove('do_image_more');
+                type1Img.classList.remove('do_image_more');
             }
         });
 
