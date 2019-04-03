@@ -35,23 +35,23 @@ let calc = () => {
                 popupCalcEnd.style.display = 'none';
                 document.body.style.overflow = '';
 
-                // obj = {
-                //     widthValue: 0,
-                //     heightValue: 0,
-                //     typeWin: 'tree',
-                //     profile: '',
-                //     name: '',
-                //     phone: 0
-                // };
-                // widthCalc.value = '';
-                // heightCalc.value = '';
-                // checkboxCold.checked = false;
-                // checkboxWarm.checked = false;
-                // inputName.value = '';
-                // inputPhone.value = '';
-                // statusMessage.innerHTML = '';
+                obj = {
+                    widthValue: 0,
+                    heightValue: 0,
+                    typeWin: 'tree',
+                    profile: '',
+                    name: '',
+                    phone: 0
+                };
+                widthCalc.value = '';
+                heightCalc.value = '';
+                checkboxCold.checked = false;
+                checkboxWarm.checked = false;
+                inputName.value = '';
+                inputPhone.value = '';
+                statusMessage.innerHTML = '';
 
-                // showTabBalconIcon(0);
+                showTabContent(0);
             }
 
         });
