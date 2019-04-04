@@ -34,21 +34,21 @@ let calc = () => {
                 popupCalcEnd.style.display = 'none';
                 document.body.style.overflow = '';
 
-                // obj = {
-                //     widthValue: 0,
-                //     heightValue: 0,
-                //     typeWin: 'tree',
-                //     profile: '',
-                //     name: '',
-                //     phone: 0
-                // };
-                // widthCalc.value = '';
-                // heightCalc.value = '';
-                // checkboxCold.checked = false;
-                // checkboxWarm.checked = false;
-                // inputName.value = '';
-                // inputPhone.value = '';
-                // statusMessage.innerHTML = '';
+                data = {
+                    width: 0,
+                    height: 0,
+                    choiceType: 'tree',
+                    profile: '',
+                    name: '',
+                    phone: 0
+                };
+                width.value = '';
+                height.value = '';
+                cold.checked = false;
+                warm.checked = false;
+                name.value = '';
+                phone.value = '';
+                statusMessage.innerHTML = '';
 
                 showTabContent(0);
             }
@@ -118,21 +118,19 @@ let calc = () => {
         height = document.querySelector('#height'),
 
         view = document.getElementById('view_type'),
-        choiceType = view.options[view.selectedIndex].value,
+        choiceType = view.options[view.selectedIndex],
 
         cold = document.getElementsByClassName('checkbox')[0],
         warm = document.getElementsByClassName('checkbox')[1],
 
-        checkboxes = document.getElementsByClassName('checkbox'),
-
-        name = document.getElementsByClassName('form_input')[0],
-        phone = document.getElementsByClassName('form_input')[1],
+        name = document.getElementsByClassName('form_input'),
+        phone = document.getElementsByClassName('form-control'),
 
         formCalc = document.getElementsByClassName('form'),
 
         data = {
-            width: 0,
-            height: 0,
+            width: '',
+            height: '',
             choiceType: '',
             profile: '',
             name: '',
@@ -145,10 +143,10 @@ let calc = () => {
     phone.oninput = e => e.target.value = e.target.value.replace(/\D/g, '');
 
     width.addEventListener('change', () => {
-        data.width = this.value;
+        data.width += +this.value;
     });
     height.addEventListener('change', () => {
-        data.height = this.value;
+        data.height += +this.value;
     });
 
     view.addEventListener('change', () => {
@@ -173,6 +171,16 @@ let calc = () => {
  
     data.name = name.value;
     data.phone = phone.value;
+
+
+
+
+
+
+
+
+
+
 
     let message = {
         loading: 'Загрузка...',

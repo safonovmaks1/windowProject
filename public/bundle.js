@@ -185,22 +185,22 @@ var calc = function calc() {
       popupCalc.style.display = 'none';
       popupCalcProfile.style.display = 'none';
       popupCalcEnd.style.display = 'none';
-      document.body.style.overflow = ''; // obj = {
-      //     widthValue: 0,
-      //     heightValue: 0,
-      //     typeWin: 'tree',
-      //     profile: '',
-      //     name: '',
-      //     phone: 0
-      // };
-      // widthCalc.value = '';
-      // heightCalc.value = '';
-      // checkboxCold.checked = false;
-      // checkboxWarm.checked = false;
-      // inputName.value = '';
-      // inputPhone.value = '';
-      // statusMessage.innerHTML = '';
-
+      document.body.style.overflow = '';
+      data = {
+        width: 0,
+        height: 0,
+        choiceType: 'tree',
+        profile: '',
+        name: '',
+        phone: 0
+      };
+      width.value = '';
+      height.value = '';
+      cold.checked = false;
+      warm.checked = false;
+      name.value = '';
+      phone.value = '';
+      statusMessage.innerHTML = '';
       showTabContent(0);
     }
   });
@@ -267,16 +267,15 @@ var calc = function calc() {
   var width = document.querySelector('#width'),
       height = document.querySelector('#height'),
       view = document.getElementById('view_type'),
-      choiceType = view.options[view.selectedIndex].value,
+      choiceType = view.options[view.selectedIndex],
       cold = document.getElementsByClassName('checkbox')[0],
       warm = document.getElementsByClassName('checkbox')[1],
-      checkboxes = document.getElementsByClassName('checkbox'),
-      name = document.getElementsByClassName('form_input')[0],
-      phone = document.getElementsByClassName('form_input')[1],
+      name = document.getElementsByClassName('form_input'),
+      phone = document.getElementsByClassName('form-control'),
       formCalc = document.getElementsByClassName('form'),
       data = {
-    width: 0,
-    height: 0,
+    width: '',
+    height: '',
     choiceType: '',
     profile: '',
     name: '',
@@ -297,10 +296,10 @@ var calc = function calc() {
   };
 
   width.addEventListener('change', function () {
-    data.width = _this.value;
+    data.width += +_this.value;
   });
   height.addEventListener('change', function () {
-    data.height = _this.value;
+    data.height += +_this.value;
   });
   view.addEventListener('change', function () {
     choiceType = _this.options[_this.selectedIndex].value;
