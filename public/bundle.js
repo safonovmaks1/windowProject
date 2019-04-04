@@ -659,7 +659,7 @@ module.exports = tabsGlazing;
 /***/ (function(module, exports) {
 
 var timer = function timer() {
-  var deadline = 'April 03 2019 21:00:00 GMT+0300';
+  var deadline = 'April 06 2019 21:00:00 GMT+0300';
 
   var getTimeRemaining = function getTimeRemaining(endtime) {
     var t = Date.parse(endtime) - Date.parse(new Date()),

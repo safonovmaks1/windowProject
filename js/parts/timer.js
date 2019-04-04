@@ -1,6 +1,6 @@
 let timer = () => {
     
-    let deadline = 'April 03 2019 21:00:00 GMT+0300';
+    let deadline = 'April 06 2019 21:00:00 GMT+0300';
 
     let getTimeRemaining = endtime => {
         let t = Date.parse(endtime) - Date.parse(new Date()),
