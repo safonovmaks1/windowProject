@@ -6,46 +6,92 @@ let ajax = () => {
         failure: 'Что-то пошло не так...',
     };
 
-    let form = document.querySelector('.form'),
-        input = document.querySelectorAll('form > input'),
-        statusMessage = document.createElement('div');
+    let statusMessage = document.createElement('div');
         statusMessage.classList.add('status');
 
-    for (let i = 1; i < 16; i = i + 2) {
-        input[i].oninput = e => e.target.value = e.target.value.replace(/\D/g, '');
-    }
+    function formSend(elem) {
+        let input = elem.getElementsByTagName('input');
+        // elem.addEventListener('submit', function (e) {
+            // elem.preventDefault();
+            elem.appendChild(statusMessage);
 
-    document.body.addEventListener('submit', (e) => {
+            let formData = new FormData(elem);
+            let obj = {};
 
-        let target = e.target;
+            formData.forEach(function (value, key) {
+                obj[key] = value;
+            });
 
-        if (target.classList.contains('form')) {
-            for (let i = 0; i < 8; i++) {
-                if (target == form[i]) {
-                    
+            let json = JSON.stringify(obj);
 
-                form[i].appendChild(statusMessage);
+            function postData(data) {
+                return new Promise(function (resolve, reject) {
+            let request = new XMLHttpRequest();
 
-                let request = new XMLHttpRequest();
-                    request.open("POST", 'server.php');
-                    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-                let formData = new FormData(form);
-                    request.send(formData);
-
-                    request.onreadystatechange = () => {
-                        if (request.readyState < 4) {
-                            statusMessage.innerHTML = message.loading;
-                        } else if (request.status == 200 && request.status === 4) {
-                            statusMessage.innerHTML = message.success;
+                request.open("POST", 'server.php');
+                request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8'); // JSON
+                request.onreadystatechange = function () {
+                    if (request.readyState < 4) {
+                        resolve();
+                    } else if (request.readyState === 4) {
+                        if (request.status == 200 && request.status < 3) {
+                            resolve();
                         } else {
-                            statusMessage.innerHTML = message.failure;
+                            reject();
                         }
-                    };
+                    }
+                };
+                request.send(json); // JSON
+                });
+            } // end postData
+
+            postData(formData)
+                .then(() => statusMessage.innerHTML = message.loading)
+                .then(() => {
+                    statusMessage.innerHTML = message.success;
+                })
+                .catch(() => statusMessage.innerHTML = message.failure)
+                .then(clearInput)
+                .then(setTimeout(() => {
+                    statusMessage.remove();
+                }, 2000));
+
+            function clearInput() {
+                for (let i = 0; i < input.length; i++) {
+                    input[i].value = ''; // Очищаем инпуты  
                 }
             }
-        }
+        // });
+    }
+
+    let callForm = document.querySelectorAll('.form');
+
+    callForm.forEach((item) => {
+        item.addEventListener('submit', () => {
+            formSend(item);
+        });
     });
+
+    let tel = document.querySelectorAll('[name = user_phone]');
+
+    let checkValidSum = (input) => {
+        return /^(8|\+7|\+)\d{0,10}$/.test(input);
+        // return /^\d{0,11}$/.test(input.value);
+    };
+
+    tel.forEach(function (item) {
+        item.addEventListener('input', function () {
+            if (item != 0) {
+                if (!checkValidSum(item.value)) {
+                    item.value = item.value.slice(0, -1);
+                }
+            }
+        });
+    });
+
+    
+
+
 };
     
 module.exports = ajax;
