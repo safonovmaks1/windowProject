@@ -8,21 +8,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let timer = require('./parts/timer'),
         ajax = require('./parts/ajax'),
-        // form = require('./parts/form'),
         tabsGlazing = require('./parts/tabsGlazing'),
         tabsDecor = require('./parts/tabsDecor'),
         popupImg = require('./parts/popupImg'),
-        // calc = require('./parts/calc'),
         nCalc = require('./parts/nCalc'),
         modal = require('./parts/modal');
 
     timer();
     ajax();
-    // form();
     tabsGlazing();
     tabsDecor();
     popupImg();
-    // calc();
     nCalc();
     modal();
 

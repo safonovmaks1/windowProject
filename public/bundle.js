@@ -735,21 +735,17 @@ window.addEventListener('DOMContentLoaded', function () {
 
   var timer = __webpack_require__(/*! ./parts/timer */ "./js/parts/timer.js"),
       ajax = __webpack_require__(/*! ./parts/ajax */ "./js/parts/ajax.js"),
-      // form = require('./parts/form'),
-  tabsGlazing = __webpack_require__(/*! ./parts/tabsGlazing */ "./js/parts/tabsGlazing.js"),
+      tabsGlazing = __webpack_require__(/*! ./parts/tabsGlazing */ "./js/parts/tabsGlazing.js"),
       tabsDecor = __webpack_require__(/*! ./parts/tabsDecor */ "./js/parts/tabsDecor.js"),
       popupImg = __webpack_require__(/*! ./parts/popupImg */ "./js/parts/popupImg.js"),
-      // calc = require('./parts/calc'),
-  nCalc = __webpack_require__(/*! ./parts/nCalc */ "./js/parts/nCalc.js"),
+      nCalc = __webpack_require__(/*! ./parts/nCalc */ "./js/parts/nCalc.js"),
       modal = __webpack_require__(/*! ./parts/modal */ "./js/parts/modal.js");
 
   timer();
-  ajax(); // form();
-
+  ajax();
   tabsGlazing();
   tabsDecor();
-  popupImg(); // calc();
-
+  popupImg();
   nCalc();
   modal();
 });
