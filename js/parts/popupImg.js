@@ -1,11 +1,12 @@
 let popupImg = () => {
 
-    let modal = document.querySelector('.overlay'),
+    let works = document.querySelector('.works'),
+        modal = document.querySelector('.overlay'),
         img = document.querySelectorAll('.myImg'),
         bigImg;
 
 
-    document.body.addEventListener('click', (e) => {
+    works.addEventListener('click', (e) => {
         e.preventDefault();
         let target = e.target;
         for (let i = 0; i < img.length; i++) {

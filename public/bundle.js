@@ -516,10 +516,11 @@ module.exports = nCalc;
 /***/ (function(module, exports) {
 
 var popupImg = function popupImg() {
-  var modal = document.querySelector('.overlay'),
+  var works = document.querySelector('.works'),
+      modal = document.querySelector('.overlay'),
       img = document.querySelectorAll('.myImg'),
       bigImg;
-  document.body.addEventListener('click', function (e) {
+  works.addEventListener('click', function (e) {
     e.preventDefault();
     var target = e.target;
 
